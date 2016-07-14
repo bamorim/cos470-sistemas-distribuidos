@@ -11,10 +11,13 @@ all: $(EXECS)
 $(GEN_DIR)/%.o: $(GEN_DIR)/%.cpp
 	g++ $(CPP_FLAGS) -c -o $@ $<
 
-bin/%: src/%.bin.cpp $(GEN_SRC)
-	g++ $(CPP_FLAGS) -o $@ $(GEN_INC) $^ -lthrift
+bin/%: src/%.bin.cpp $(GEN_SRC) $(GEN_DIR)
+	g++ $(CPP_FLAGS) -o $@ $(GEN_INC) $< $(GEN_SRC) -lthrift -pthread
 
 $(GEN_DIR)/%.cpp: vector_math.thrift
+	thrift --gen cpp vector_math.thrift
+
+$(GEN_DIR):
 	thrift --gen cpp vector_math.thrift
 
 .PHONY:clean

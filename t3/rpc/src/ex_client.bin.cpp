@@ -30,14 +30,18 @@ void print_all(const std::vector<int32_t> xs){
 std::vector<int32_t> generate(int n){
   std::vector<int32_t> numbers;
   numbers.reserve(n);
+  #ifdef DEBUG
   std::cout << "Reserved " << n*4 << " bytes" << std::endl;
+  #endif
 
   std::uniform_int_distribution<int32_t> dist(0, MAX_NUMBER);
   std::mt19937 mt;
   auto generator = std::bind(dist, mt);
 
   std::generate_n(std::back_inserter(numbers), n, generator);
+  #ifdef DEBUG
   std::cout << "Generated " << n << " random numbers" << std::endl;
+  #endif
 
   return numbers;
 }
@@ -97,14 +101,21 @@ int main(int argc, char** argv){
     }));
   }
 
+  #ifdef DEBUG
   std::cout << "Sent " << K << " jobs" << std::endl;
+  #endif
 
   for(auto &t : threads) t.join();
 
   gettimeofday(&end_time, NULL);
   double seconds = ((end_time.tv_sec  - start_time.tv_sec) * 1000000u + 
                     end_time.tv_usec - start_time.tv_usec) / 1.e6;
+  #ifdef DEBUG
   std::cout << "Ran in " << seconds << " seconds" << std::endl;
+  #endif
+  #ifndef DEBUG
+    std::cout << seconds << std::endl;
+  #endif
 
   #ifdef DEBUG
   print_all(numbers);
