@@ -204,3 +204,5 @@ end
 Para disparar as tarefas, foi feito um código que inicializa o *master* e depois cria diversos *writers* e os espera terminar. Caso o modo seja em sequence arrival, cria um processo por vez, dorme por um tempo determinado e continua.
 
 ## Resultados
+
+![](lock/plot.png)
