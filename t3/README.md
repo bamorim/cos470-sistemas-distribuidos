@@ -61,7 +61,7 @@ Para de fato realizar os testes, foi feito um cliente que gera grandes vetores a
 
 Cada thread por sua vez, faz uma chamada RPC e depois copia sua parte para a partição correspondente no vetor original.
 
-```c++
+```cpp
   for(auto i = 0; i < K; i++){
     auto start = numbers.begin() + i*step;
     threads.push_back(std::thread([start, step, operation, operand, host, port](){
