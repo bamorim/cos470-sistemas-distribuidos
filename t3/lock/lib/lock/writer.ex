@@ -1,12 +1,6 @@
 defmodule Lock.Writer do
-  import Lock.Utils
+  def run(_, _, 0), do: nil
   def run(master, name, remaining) do
-    :random.seed(process_seed)
-    do_writer(master, name, remaining)
-  end
-
-  defp do_writer(master, name, 0), do: nil
-  defp do_writer(master, name, remaining) do
     {:ok, file} = File.open("chat.txt", [:write, :append])
 
     # Write many times so it flushes in parts
@@ -17,8 +11,8 @@ defmodule Lock.Writer do
     IO.write(file, "\n")
     release(master)
 
-    Process.sleep(:random.uniform(1000))
-    do_writer(master, name, remaining - 1)
+    Process.sleep(:rand.uniform(1000))
+    run(master, name, remaining - 1)
   end
 
   defp release(master), do: send master, {:release, self}
