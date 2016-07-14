@@ -1,14 +1,15 @@
 defmodule Lock.Writer do
   def run(_, _, 0), do: nil
   def run(master, name, remaining) do
-    {:ok, file} = File.open("chat.txt", [:write, :append])
 
     # Write many times so it flushes in parts
     # This is just to create a race condition even on single-core computers
     acquire(master)
+    {:ok, file} = File.open("chat.txt", [:write, :append])
     IO.write(file, name)
     IO.write(file, "is writing")
     IO.write(file, "\n")
+    File.close(file)
     release(master)
 
     Process.sleep(:rand.uniform(1000))
