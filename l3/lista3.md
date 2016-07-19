@@ -70,7 +70,7 @@ O NTP funciona colocando uma rede de computadores, com algum deles conectados di
         t        4    1    0    3
         u        4    1    0    5
 
-  6. Não existe. O Relógio de Vetor não desclassifica uma comparação do Relógio de Lamport. Isto é, $L(x) > L(y) \rightarrow V(x) > L(y)$. (Repare que o contrário não é verdadeiro)
+  6. Não existe. O Relógio de Vetor não desclassifica uma comparação do Relógio de Lamport. Isto é, $L(x) > L(y) \rightarrow V(x) > V(y)$. (Repare que o contrário não é verdadeiro)
   7. Que $x||y$ ou $x \rightarrow y$
   8. Que $x \rightarrow y$
 
